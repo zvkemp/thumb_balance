@@ -16,10 +16,21 @@
       =f.text_field :amount
 
       =f.label :place
-      =f.select :place, options_for_select(Transaction.place_names)
+      =f.select :place, options_for_select(Place.all.map {|place| [place.name, place.id] })
 
       =f.label :category
       =f.text_field :category
 
       %br/
       =f.submit
+
+
+:javascript
+  var place_categories = #{@place_categories.html_safe};
+
+  $(document).ready(function() {
+    $('#transaction_place').change(function() {
+      var a = place_categories[$(this).val()];
+      alert(a);
+    });
+  });
