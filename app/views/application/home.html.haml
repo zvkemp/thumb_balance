@@ -1,0 +1,25 @@
+.row
+  .span12
+    %table.table.table-striped
+      -@transactions.each do |transaction|
+        %tr
+          %td= transaction.amount
+          %td= transaction.place
+          %td= transaction.created_at
+          %td= transaction.category
+
+
+.row
+  .span12
+    =form_for @transaction do |f|
+      =f.label :amount
+      =f.text_field :amount
+
+      =f.label :place
+      =f.select :place, options_for_select(Transaction.place_names)
+
+      =f.label :category
+      =f.text_field :category
+
+      %br/
+      =f.submit
